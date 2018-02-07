@@ -1,0 +1,24 @@
+[3tierapp:children]
+frontends
+apps
+appdbs
+support
+
+
+[frontends]
+## These are the frontends
+frontend1.b740.internal ansible_ssh_host=frontend1.b740.example.opentlc.com
+
+[apps]
+## These are the apps
+app1.b740.internal ansible_ssh_host=app1.b740.example.opentlc.com
+app2.b740.internal ansible_ssh_host=app2.b740.example.opentlc.com
+
+[appdbs]
+## These are the appdbs
+appdb1.b740.internal ansible_ssh_host=appdb1.b740.example.opentlc.com
+
+## These are the support
+[support]
+support1.b740.internal ansible_ssh_host=support1.b740.example.opentlc.com
+

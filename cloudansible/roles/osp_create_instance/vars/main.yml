@@ -1,0 +1,11 @@
+---
+# vars file for osp_create_instance
+
+deployment: dev
+net_int: network2
+net_ext: network1
+webserver_name: web1
+databaseserver_name: db1
+flavor_name: m1.small
+webserver_group: webservers
+database_group: databaseservers
