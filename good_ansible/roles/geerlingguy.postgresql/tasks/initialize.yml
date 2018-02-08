@@ -19,11 +19,20 @@
     path: "{{ postgresql_data_dir }}/PG_VERSION"
   register: pgdata_dir_version
 
+- name: Detect /etc/sudoers
+  stat: path=/etc/sudoers
+  register: etc_sudoers
+
+- name: Disable sudo requiretty for Ansible pipelining
+  lineinfile: dest=/etc/sudoers regexp="^Defaults(\s+)(.*)requiretty(.*)" line="#Defaults\1\2requiretty\3" backrefs=yes
+  when: etc_sudoers.stat.exists
+
+
 - name: Ensure PostgreSQL database is initialized.
   command: "{{ postgresql_bin_path }}/initdb -D {{ postgresql_data_dir }}"
   when: not pgdata_dir_version.stat.exists
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
   become: yes
   become_user: "{{ postgresql_user }}"
-  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
   vars:
     ansible_ssh_pipelining: true
